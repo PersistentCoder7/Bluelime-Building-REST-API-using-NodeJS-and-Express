@@ -67,6 +67,15 @@ app.put("/api/fruits/:id", (req, res) => {
   res.status(200).send(fruit);
 });
 
+app.delete("/api/fruits/:id", (req, res) => {
+  const fruit = fruits.find((x) => x.id == parseInt(req.params.id));
+  if (!fruit) res.status(404).send("fruit not found");
+
+  const index = fruits.indexOf(fruit);
+  fruits.splice(index, 1);
+  res.status(200).send(fruit);
+});
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`listening on port ${port}...`);
